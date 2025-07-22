@@ -1,6 +1,6 @@
-/* *{
+*{
     outline:red 1px solid;
-} */
+}
 .calculatorBody{
     background-color: rgb(82, 82, 82);
     width:350px;
@@ -20,10 +20,15 @@
     background-color: white;
     padding:0 5px;
     justify-content: center;
+    align-items: end;
+
+}
+.input{
     text-align: end;
     font-size: xx-large;
     font-weight: 100;
     font-family: 'Courier New', Courier, monospace;
+    width:fit-content;
 }
 
 .buttons{
