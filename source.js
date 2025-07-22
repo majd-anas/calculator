@@ -29,11 +29,13 @@ let operate =function(a,o,b){
         case "-":
             return subtract(a,b);
         
-        case "*":
+        case "x":
             return multiply(a,b);
         
         case "/":
             return divide(a,b);
+        default:
+            return "oops"; 
     }
 }
 
@@ -43,6 +45,15 @@ function leftDigit(digit){
     else
         l=digit;
 }
+
+function rightDigit(digit){
+    if(!digit)
+        r=0;
+    else
+        r=digit;
+
+}
+
 
 function getOperator(op){
     oprtr=op;
@@ -63,8 +74,12 @@ let deleteNo=function(){
     let display=document.querySelector(".input");
     del.addEventListener("click",()=>{
         display.textContent=display.textContent.slice(0,display.textContent.length-1);
-        leftDigit(parseInt(display.textContent));
-        console.log(l);
+        if(oprtr==null){
+            leftDigit(parseInt(display.textContent));
+        }
+        else{
+            rightDigit(parseInt(display.textContent));
+        }
     });
 } 
 
@@ -74,13 +89,43 @@ let enterNo=function(){
     let display=document.querySelector(".input");
     digits.forEach((digit)=>{
         digit.addEventListener("click",(e)=>{
-            display.textContent+=e.target.textContent;
-            leftDigit(parseInt(display.textContent));
-            console.log(l);
+            if(oprtr==null){
+                display.textContent+=e.target.textContent;
+                leftDigit(parseInt(display.textContent));
+                console.log("value of l "+l);
+            }
+            else{
+
+                if(r===null){
+                    display.textContent="";
+                    display.textContent=e.target.textContent;
+                    rightDigit(parseInt(display.textContent));
+                }
+                else{
+                    display.textContent+=e.target.textContent;
+                    rightDigit(parseInt(display.textContent));
+                }
+
+            }
+
         });
     });
 }
 
+function equality(){
+    let equal=document.querySelector(".equal");
+    let display=document.querySelector(".input");
+    equal.addEventListener("click",(e)=>{
+        if(r!=null){
+           l=result=operate(l,oprtr,r);
+           r=null;
+           oprtr=null;
+           display.textContent=result;
+           console.log("result is "+ result);
+        }
+    });
+}
 enterNo();
 deleteNo();
 clickOperation();
+equality();
